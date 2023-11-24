@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Cadastrar Filme</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">Cadastrar Filme</h1>
+        <form method="post" action="{% url 'cadastra_filme' %}">
+            {% csrf_token %}
+            
+            <div class="form-group row">
+                <label for="{{ form.titulo.id_for_label }}" class="col-sm-2 col-form-label text-left">Título:</label>
+                <div class="col-sm-10">
+                    {{ form.titulo }}
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="{{ form.data_assistido.id_for_label }}" class="col-sm-2 col-form-label text-left">Assistido em:</label>
+                <div class="col-sm-10">
+                    {{ form.data_assistido }}
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="{{ form.gostaria_assistir.id_for_label }}" class="col-sm-2 col-form-label text-left">Gostaria assistir:</label>
+                <div class="col-sm-10">
+                    {{ form.gostaria_assistir }}
+                </div>
+            </div>
+
+            <div class="row mt-3">
+                <div class="col">
+                    <button type="submit" class="btn btn-primary btn-block">Salvar</button>
+                </div>
+                <div class="col">
+                    <a href="{% url 'lista_filmes' %}" class="btn btn-secondary btn-block">Voltar para a lista de filmes</a>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-U6m2O+Ft2COoNR1opJjmmLW6h27sJYazt1PtlYS9I6vAPPI8TOuoVddG2bRAksd6" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var dataAssistidoField = document.getElementById('{{ form.data_assistido.id_for_label }}');
+            var gostariaAssistirField = document.getElementById('{{ form.gostaria_assistir.id_for_label }}');
+
+            dataAssistidoField.addEventListener('change', function () {
+                gostariaAssistirField.disabled = this.value !== '';
+            });
+        });
+    </script>
+</body>
+</html>
